@@ -1,14 +1,15 @@
-﻿using Infrastructure.States;
+﻿using Infrastructure.Services;
+using Infrastructure.States;
 
 namespace Infrastructure
 {
     public class Game
     {
-        private readonly StateMachine _stateMachine;
+        public readonly StateMachine StateMachine;
 
         public Game()
         {
-            _stateMachine = new StateMachine();
+            StateMachine = new StateMachine(ServicesContainer.Instance);
         }
     }
 }

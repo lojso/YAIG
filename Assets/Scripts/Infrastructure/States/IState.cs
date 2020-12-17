@@ -10,7 +10,7 @@
         void Enter();
     }
 
-    public interface IContextState<TContext> : IExitableState
+    public interface IState<TContext> : IExitableState
     {
         void Enter(TContext context);
     }

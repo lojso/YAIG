@@ -14,12 +14,12 @@ namespace Infrastructure.Services
 
         public void StartCoroutine(IEnumerator coroutine)
         {
-            StartCoroutine(coroutine);
+            base.StartCoroutine(coroutine);
         }
 
         public void StopCoroutine(IEnumerator coroutine)
         {
-            StopCoroutine(coroutine);
+            base.StopCoroutine(coroutine);
         }
     }
 }
