@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Infrastructure.Services;
 
 namespace Infrastructure.States
 {
@@ -12,7 +13,7 @@ namespace Infrastructure.States
         {
             _states = new Dictionary<Type, IExitableState>
             {
-                [typeof(BootstrapState)] = new BootstrapState(this),
+                [typeof(BootstrapState)] = new BootstrapState(this, ServicesContainer.Instance),
                 [typeof(LoadLevelState)] = new LoadLevelState(this),
                 [typeof(GameLoopState)] = new GameLoopState(this),
             };
