@@ -38,7 +38,7 @@ namespace Infrastructure.States
         {
             var runtimeService = new GameObject("RuntimeService").AddComponent<RuntimeService>();
             _services.RegisterSingle<IRuntimeService>(runtimeService);
-            
+            _services.RegisterSingle<IInputService>(new InputService());
             _services.RegisterSingle<ISceneLoader>(new SceneLoader(_services.Single<IRuntimeService>()));
         }
     }
