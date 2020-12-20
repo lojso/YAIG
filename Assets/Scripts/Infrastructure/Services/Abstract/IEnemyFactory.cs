@@ -1,7 +1,9 @@
-﻿namespace Infrastructure.Services.Abstract
+﻿using UnityEngine;
+
+namespace Infrastructure.Services.Abstract
 {
     public interface IEnemyFactory : IService
     {
-        void SpawnEnemy();
+        GameObject SpawnEnemy();
     }
 }
