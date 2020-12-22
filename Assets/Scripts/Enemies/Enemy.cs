@@ -3,18 +3,48 @@ using UnityEngine;
 
 namespace Enemies
 {
+    [RequireComponent(typeof(Rigidbody2D))]
     public class Enemy : MonoBehaviour
     {
         [SerializeField] private float _detectionRange;
+        [SerializeField] private float _speed;
+        private readonly Quaternion _defaultPosition = Quaternion.Euler(0, 0, 0);
+        private readonly Quaternion _invertedPosition = Quaternion.Euler(0, 180, 0);
 
         private const int PLAYER_LAYER_MASK = 1 << 8;
 
-        private void Update()
+        private void FixedUpdate()
         {
             var playerHit = IsPlayerDetected();
-            if(playerHit.collider != null)
-                Debug.Log("Found u!");
+
+            if (playerHit.collider == null)
+                return;
+            
+            Move(to: playerHit.point);
         }
+
+        private void Move(Vector2 to)
+        {
+            Rotate(to);
+        }
+
+        private void Rotate(Vector2 to)
+        {
+            if(to.x > transform.position.x)
+            {
+                RotateToRight();
+            }
+            else
+            {
+                RotateToLeft();
+            }
+        }
+
+        private void RotateToRight() => 
+            transform.rotation = _defaultPosition;
+        
+        private void RotateToLeft() => 
+            transform.rotation = _invertedPosition;
 
         private RaycastHit2D IsPlayerDetected()
         {
