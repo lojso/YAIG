@@ -49,6 +49,7 @@ namespace GameLogic.Enemies
             MoveForward(transform.right, _speed);
         }
 
+        // TODO: Уже готово в Mover, перенести сюда
         private void Rotate(Vector2 to)
         {
             if(to.x < transform.position.x)
@@ -69,9 +70,6 @@ namespace GameLogic.Enemies
 
         private void MoveForward(Vector2 direction, float speed)
         {
-            var velocity = _rigidBody.velocity;
-            velocity.x = direction.x * _speed * Time.fixedDeltaTime;
-            _rigidBody.velocity = velocity;
         }
 
         private void Stop()
