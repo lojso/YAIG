@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Enemies
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class Enemy : MonoBehaviour
+    public class Enemy : MonoBehaviour, IDamageable
     {
         [SerializeField] private float _detectionRange = 2f;
         [SerializeField] private float _speed = 50f;
@@ -29,6 +29,19 @@ namespace Enemies
                 return;
             
             Move(to: playerHit.point);
+        }
+
+        public void Damage(int amount)
+        {
+            _hp -= amount;
+            Debug.Log($"Damage {gameObject.name} for {amount} hp");
+            if (_hp <= 0)
+                Death();
+        }
+
+        private void Death()
+        {
+            Destroy(gameObject);
         }
 
         private void Move(Vector2 to)
@@ -84,5 +97,10 @@ namespace Enemies
             Gizmos.color = Color.green;
             Gizmos.DrawRay((Vector2) transform.position + Vector2.left * _detectionRange, Vector2.right * _detectionRange * 2);
         }
+    }
+
+    public interface IDamageable
+    {
+        void Damage(int amount);
     }
 }
