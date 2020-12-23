@@ -8,6 +8,7 @@ namespace Enemies
     {
         [SerializeField] private float _detectionRange = 2f;
         [SerializeField] private float _speed = 50f;
+        [SerializeField] private int _hp = 3;
         
         private const int PLAYER_LAYER_MASK = 1 << 8;
         private readonly Quaternion _defaultPosition = Quaternion.Euler(0, 0, 0);
@@ -20,7 +21,7 @@ namespace Enemies
             _rigidBody = GetComponent<Rigidbody2D>();
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
             var playerHit = IsPlayerDetected();
 
@@ -68,21 +69,20 @@ namespace Enemies
 
         private RaycastHit2D IsPlayerDetected()
         {
-            RaycastHit2D raycastToPlayer; 
-            raycastToPlayer = Physics2D.Raycast(transform.position, Vector2.right, _detectionRange, PLAYER_LAYER_MASK);
-            if (raycastToPlayer.collider != null)
-                return raycastToPlayer;
-
-            raycastToPlayer = Physics2D.Raycast(transform.position, Vector2.left, _detectionRange, PLAYER_LAYER_MASK);
-            // TODO: это все можно сделать одним рейкастом
+            RaycastHit2D raycastToPlayer;
+            
+            raycastToPlayer = Physics2D.Raycast((Vector2) transform.position + Vector2.left * _detectionRange,
+                Vector2.right,
+                _detectionRange * 2,
+                PLAYER_LAYER_MASK);
+            
             return raycastToPlayer;
         }
 
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.green;
-            Gizmos.DrawRay(transform.position, Vector2.left * _detectionRange);
-            Gizmos.DrawRay(transform.position, Vector2.right * _detectionRange);
+            Gizmos.DrawRay((Vector2) transform.position + Vector2.left * _detectionRange, Vector2.right * _detectionRange * 2);
         }
     }
 }
