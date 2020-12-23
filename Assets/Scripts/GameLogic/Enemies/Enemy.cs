@@ -61,6 +61,12 @@ namespace GameLogic.Enemies
             }
         }
 
+        private void RotateToRight() => 
+            transform.rotation = _defaultPosition;
+
+        private void RotateToLeft() => 
+            transform.rotation = _invertedPosition;
+
         private void MoveForward(Vector2 direction, float speed)
         {
             var velocity = _rigidBody.velocity;
@@ -72,12 +78,6 @@ namespace GameLogic.Enemies
         {
             _rigidBody.velocity = Vector2.zero;
         }
-
-        private void RotateToRight() => 
-            transform.rotation = _defaultPosition;
-        
-        private void RotateToLeft() => 
-            transform.rotation = _invertedPosition;
 
         private RaycastHit2D IsPlayerDetected()
         {

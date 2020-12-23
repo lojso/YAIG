@@ -3,5 +3,6 @@
     public interface IInputService : IService
     {
         float GetHorizontalInput();
+        bool IsAttackPressed();
     }
 }

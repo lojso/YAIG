@@ -9,5 +9,10 @@ namespace Infrastructure.Services
         {
             return Input.GetAxisRaw("Horizontal");
         }
+
+        public bool IsAttackPressed()
+        {
+            return Input.GetKeyDown(KeyCode.Space);
+        }
     }
 }
