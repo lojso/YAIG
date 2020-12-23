@@ -1,7 +1,6 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Enemies
+namespace GameLogic.Enemies
 {
     [RequireComponent(typeof(Rigidbody2D))]
     public class Enemy : MonoBehaviour, IDamageable
@@ -97,10 +96,5 @@ namespace Enemies
             Gizmos.color = Color.green;
             Gizmos.DrawRay((Vector2) transform.position + Vector2.left * _detectionRange, Vector2.right * _detectionRange * 2);
         }
-    }
-
-    public interface IDamageable
-    {
-        void Damage(int amount);
     }
 }

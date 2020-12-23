@@ -1,6 +1,4 @@
-﻿using System.Collections;
-
-namespace Infrastructure.Services
+﻿namespace Infrastructure.Services.Abstract
 {
     public interface IService
     {

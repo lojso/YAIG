@@ -1,4 +1,6 @@
-﻿namespace Infrastructure.Services
+﻿using Infrastructure.Services.Abstract;
+
+namespace Infrastructure.Services
 {
     public class ServicesContainer
     {

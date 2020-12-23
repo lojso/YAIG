@@ -2,7 +2,7 @@
 using Infrastructure.Services.Abstract;
 using UnityEngine;
 
-namespace Enemies
+namespace GameLogic.Enemies
 {
     public class EnemySpawner : MonoBehaviour
     {

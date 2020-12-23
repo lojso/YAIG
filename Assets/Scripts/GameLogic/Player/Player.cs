@@ -1,9 +1,8 @@
-﻿using System;
-using Infrastructure.Services;
+﻿using Infrastructure.Services;
 using Infrastructure.Services.Abstract;
 using UnityEngine;
 
-namespace Player
+namespace GameLogic.Player
 {
     [RequireComponent(typeof(Rigidbody2D))]
     public class Player : MonoBehaviour
