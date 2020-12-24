@@ -14,7 +14,6 @@ namespace GameLogic.Player
         private static readonly int PunchAnimationTrigger = Animator.StringToHash("Punch");
 
         private IInputService _inputService;
-        private Rigidbody2D _rigidBody;
         private Vector2 _velocity;
         private Animator _animator;
         private CreatureMover _mover;
@@ -22,10 +21,9 @@ namespace GameLogic.Player
         private void Awake()
         {
             _inputService = ServicesContainer.Instance.Single<IInputService>();
-            _rigidBody = GetComponent<Rigidbody2D>();
             _animator = GetComponent<Animator>();
 
-            _mover = new CreatureMover(_rigidBody);
+            _mover = new CreatureMover(GetComponent<Rigidbody2D>());
         }
 
         private void Update()
@@ -50,6 +48,7 @@ namespace GameLogic.Player
 
         private void FixedUpdate()
         {
+            _mover.Stop();
             if(_velocity == Vector2.zero)
                 return;
 

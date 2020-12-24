@@ -13,11 +13,11 @@ namespace GameLogic.Enemies
         private readonly Quaternion _defaultPosition = Quaternion.Euler(0, 0, 0);
         private readonly Quaternion _invertedPosition = Quaternion.Euler(0, 180, 0);
         
-        private Rigidbody2D _rigidBody;
+        private CreatureMover _mover;
 
         private void Awake()
         {
-            _rigidBody = GetComponent<Rigidbody2D>();
+            _mover = new CreatureMover(GetComponent<Rigidbody2D>());
         }
 
         private void Update()
@@ -27,7 +27,7 @@ namespace GameLogic.Enemies
             if (playerHit.collider == null)
                 return;
             
-            Move(to: playerHit.point);
+            _mover.Move(transform.position.normalized - playerHit.transform.position, _speed * Time.deltaTime);
         }
 
         public void Damage(int amount)
@@ -41,40 +41,6 @@ namespace GameLogic.Enemies
         private void Death()
         {
             Destroy(gameObject);
-        }
-
-        private void Move(Vector2 to)
-        {
-            Rotate(to);
-            MoveForward(transform.right, _speed);
-        }
-
-        // TODO: Уже готово в Mover, перенести сюда
-        private void Rotate(Vector2 to)
-        {
-            if(to.x < transform.position.x)
-            {
-                RotateToLeft();
-            }
-            else
-            {
-                RotateToRight();
-            }
-        }
-
-        private void RotateToRight() => 
-            transform.rotation = _defaultPosition;
-
-        private void RotateToLeft() => 
-            transform.rotation = _invertedPosition;
-
-        private void MoveForward(Vector2 direction, float speed)
-        {
-        }
-
-        private void Stop()
-        {
-            _rigidBody.velocity = Vector2.zero;
         }
 
         private RaycastHit2D IsPlayerDetected()

@@ -21,6 +21,13 @@ namespace GameLogic
             velocity.x = direction.x * speed;
             _rigidbody.velocity = velocity;
         }
+
+        public void Stop()
+        {
+            var velocity = _rigidbody.velocity;
+            velocity.x = 0;
+            _rigidbody.velocity = velocity;            
+        }
         
         public void RotateDirection(Vector2 direction)
         {
