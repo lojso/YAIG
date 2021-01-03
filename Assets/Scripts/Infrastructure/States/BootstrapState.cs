@@ -36,11 +36,16 @@ namespace Infrastructure.States
 
         private void RegisterServices()
         {
-            var runtimeService = new GameObject("RuntimeService").AddComponent<RuntimeService>();
-            _services.RegisterSingle<IRuntimeService>(runtimeService);
+            RegisterRuntimeService();
             _services.RegisterSingle<IInputService>(new InputService());
             _services.RegisterSingle<IEnemyFactory>(new EnemyFactory());
             _services.RegisterSingle<ISceneLoader>(new SceneLoader(_services.Single<IRuntimeService>()));
+        }
+
+        private void RegisterRuntimeService()
+        {
+            var runtimeService = new GameObject("RuntimeService").AddComponent<RuntimeService>();
+            _services.RegisterSingle<IRuntimeService>(runtimeService);
         }
     }
 }

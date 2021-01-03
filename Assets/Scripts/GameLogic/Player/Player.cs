@@ -10,20 +10,25 @@ namespace GameLogic.Player
     public class Player : MonoBehaviour
     {
         [SerializeField] private float _playerSpeed;
-
-        private static readonly int PunchAnimationTrigger = Animator.StringToHash("Punch");
+        [SerializeField] private float _attackCooldownSec;
+        
 
         private IInputService _inputService;
+        private ITimeService _timeService;
         private Vector2 _velocity;
-        private Animator _animator;
+        private PlayerAnimator _animator;
         private CreatureMover _mover;
+        private bool _canAttack;
 
         private void Awake()
         {
             _inputService = ServicesContainer.Instance.Single<IInputService>();
-            _animator = GetComponent<Animator>();
+            _timeService = ServicesContainer.Instance.Single<ITimeService>();
+            _animator = new PlayerAnimator(GetComponent<Animator>());
 
             _mover = new CreatureMover(GetComponent<Rigidbody2D>());
+
+            _canAttack = true;
         }
 
         private void Update()
@@ -34,10 +39,13 @@ namespace GameLogic.Player
 
         private void ProcessAttack()
         {
-            if (!_inputService.IsAttackPressed())
+            if (!_inputService.IsAttackPressed() && _canAttack)
                 return;
 
-            _animator.SetTrigger(PunchAnimationTrigger);
+            _animator.Attack();
+            _canAttack = false;
+
+            _timeService.StartTimer(_attackCooldownSec, null, () => _canAttack = true);
         }
 
         private void ProcessMovementInput()

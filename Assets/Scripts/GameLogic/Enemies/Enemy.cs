@@ -10,9 +10,8 @@ namespace GameLogic.Enemies
         [SerializeField] private int _hp = 3;
         
         private const int PLAYER_LAYER_MASK = 1 << 8;
-        private readonly Quaternion _defaultPosition = Quaternion.Euler(0, 0, 0);
-        private readonly Quaternion _invertedPosition = Quaternion.Euler(0, 180, 0);
-        
+
+        private Vector2 LocalForward => transform.right;
         private CreatureMover _mover;
 
         private void Awake()
@@ -27,7 +26,8 @@ namespace GameLogic.Enemies
             if (playerHit.collider == null)
                 return;
             
-            _mover.Move(transform.position.normalized - playerHit.transform.position, _speed * Time.deltaTime);
+            _mover.RotateDirection(playerHit.transform.position - transform.position);
+            _mover.Move(LocalForward, _speed * Time.deltaTime);
         }
 
         public void Damage(int amount)
