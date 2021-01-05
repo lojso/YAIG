@@ -58,7 +58,6 @@ namespace GameLogic.Player
             if(_velocity == Vector2.zero)
                 return;
 
-            //_mover.RotateDirection(_velocity);
             _mover.Move(_velocity.normalized, _playerSpeed * Time.fixedDeltaTime);
         }
     }
