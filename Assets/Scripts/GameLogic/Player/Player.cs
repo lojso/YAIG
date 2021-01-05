@@ -37,9 +37,9 @@ namespace GameLogic.Player
 
         private void ProcessAttack()
         {
-            if (!_inputService.IsAttackPressed() && _canAttack)
+            if (!_inputService.IsAttackPressed() || !_canAttack)
                 return;
-
+            
             _animator.Attack();
             _canAttack = false;
 
