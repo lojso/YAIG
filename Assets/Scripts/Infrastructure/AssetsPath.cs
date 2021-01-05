@@ -2,6 +2,8 @@
 {
     public class AssetsPath
     {
-        public const string EnemyPath = "Prefabs/Enemy";
+        public const string Enemy = "Prefabs/Enemy";
+        public const string Player = "Prefabs/Enemy";
+        public const string Camera = "Prefabs/Enemy";
     }
 }

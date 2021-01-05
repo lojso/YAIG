@@ -1,13 +1,13 @@
-﻿using Infrastructure.Services.Abstract;
+﻿using Infrastructure.Services.Abstract.Factories;
 using UnityEngine;
 
-namespace Infrastructure.Services
+namespace Infrastructure.Services.Factories
 {
     public class EnemyFactory : IEnemyFactory
     {
         public GameObject SpawnEnemy()
         {
-            var enemyPrefab = Resources.Load<GameObject>(AssetsPath.EnemyPath);
+            var enemyPrefab = Resources.Load<GameObject>(AssetsPath.Enemy);
             return Object.Instantiate(enemyPrefab);
         }
     }

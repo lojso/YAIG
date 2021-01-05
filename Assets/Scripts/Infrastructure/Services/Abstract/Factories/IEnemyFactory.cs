@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Infrastructure.Services.Abstract
+namespace Infrastructure.Services.Abstract.Factories
 {
     public interface IEnemyFactory : IService
     {
