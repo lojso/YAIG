@@ -38,6 +38,7 @@ namespace Infrastructure.States
         private void RegisterServices()
         {
             RegisterRuntimeService();
+            RegisterTimeService();
             RegisterFactories();
             _services.RegisterSingle<IInputService>(new InputService());
             _services.RegisterSingle<ISceneLoader>(new SceneLoader(_services.Single<IRuntimeService>()));
@@ -54,6 +55,12 @@ namespace Infrastructure.States
         {
             var runtimeService = new GameObject("RuntimeService").AddComponent<RuntimeService>();
             _services.RegisterSingle<IRuntimeService>(runtimeService);
+        }
+        
+        private void RegisterTimeService()
+        {
+            var timeService = new GameObject("TimeService").AddComponent<TimeService>();
+            _services.RegisterSingle<ITimeService>(timeService);
         }
     }
 }
