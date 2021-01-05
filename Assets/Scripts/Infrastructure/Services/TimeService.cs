@@ -9,8 +9,9 @@ namespace Infrastructure.Services
     {
         private List<IServiceTimer> _timers;
 
-        public TimeService()
+        private void Awake()
         {
+            DontDestroyOnLoad(this);
             _timers = new List<IServiceTimer>();
         }
         
