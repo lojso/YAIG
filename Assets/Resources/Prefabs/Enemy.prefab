@@ -175,4 +175,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _detectionRange: 2
-  _speed: 50
+  _speed: 200
+  _hp: 3

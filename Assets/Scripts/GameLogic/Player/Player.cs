@@ -1,5 +1,4 @@
-﻿using System.Data;
-using Infrastructure.Services;
+﻿using Infrastructure.Services;
 using Infrastructure.Services.Abstract;
 using UnityEngine;
 
@@ -12,7 +11,6 @@ namespace GameLogic.Player
         [SerializeField] private float _playerSpeed;
         [SerializeField] private float _attackCooldownSec;
         
-
         private IInputService _inputService;
         private ITimeService _timeService;
         private Vector2 _velocity;
