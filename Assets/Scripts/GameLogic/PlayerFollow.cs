@@ -1,4 +1,7 @@
 ﻿using System;
+using System.ComponentModel.Design;
+using Infrastructure.Services;
+using Infrastructure.Services.Abstract.Factories;
 using UnityEngine;
 
 namespace GameLogic
@@ -14,6 +17,15 @@ namespace GameLogic
         private void Start()
         {
             _camera = GetComponent<Camera>();
+
+            var playerFactory = ServicesContainer.Instance.Single<IPlayerFactory>();
+            
+            _playerTransform = playerFactory.Player.transform;
+            
+            if (_playerTransform == null)
+            {
+                playerFactory.OnPlayerCreated += player => _playerTransform = player.transform;
+            }
         }
 
         private void Update()

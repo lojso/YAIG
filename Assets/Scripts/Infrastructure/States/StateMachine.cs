@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Infrastructure.Services;
 using Infrastructure.Services.Abstract;
+using Infrastructure.Services.Abstract.Factories;
 
 namespace Infrastructure.States
 {
@@ -15,7 +16,8 @@ namespace Infrastructure.States
             _states = new Dictionary<Type, IExitableState>
             {
                 [typeof(BootstrapState)] = new BootstrapState(this, services),
-                [typeof(LoadLevelState)] = new LoadLevelState(this, services.Single<ISceneLoader>()),
+                [typeof(LoadLevelState)] = new LoadLevelState(this, services.Single<ISceneLoader>(),
+                    services.Single<ICameraFactory>(), services.Single<IPlayerFactory>()),
                 [typeof(GameLoopState)] = new GameLoopState(this),
             };
         }

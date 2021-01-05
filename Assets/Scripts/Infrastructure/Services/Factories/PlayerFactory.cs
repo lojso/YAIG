@@ -13,7 +13,7 @@ namespace Infrastructure.Services.Factories
         
         public Player CreatePlayer()
         {            
-            var playerPrefab = Resources.Load<Player>(AssetsPath.Enemy);
+            var playerPrefab = Resources.Load<Player>(AssetsPath.Player);
             
             Player = Object.Instantiate(playerPrefab);
             

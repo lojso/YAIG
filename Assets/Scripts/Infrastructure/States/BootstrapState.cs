@@ -38,9 +38,16 @@ namespace Infrastructure.States
         private void RegisterServices()
         {
             RegisterRuntimeService();
+            RegisterFactories();
             _services.RegisterSingle<IInputService>(new InputService());
-            _services.RegisterSingle<IEnemyFactory>(new EnemyFactory());
             _services.RegisterSingle<ISceneLoader>(new SceneLoader(_services.Single<IRuntimeService>()));
+        }
+
+        private void RegisterFactories()
+        {
+            _services.RegisterSingle<IEnemyFactory>(new EnemyFactory());
+            _services.RegisterSingle<ICameraFactory>(new CameraFactory());
+            _services.RegisterSingle<IPlayerFactory>(new PlayerFactory());
         }
 
         private void RegisterRuntimeService()
