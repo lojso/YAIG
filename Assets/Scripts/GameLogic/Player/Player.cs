@@ -60,5 +60,10 @@ namespace GameLogic.Player
 
             _mover.Move(_velocity.normalized, _playerSpeed * Time.fixedDeltaTime);
         }
+
+        public void Damage(int damage)
+        {
+            Debug.Log("PlayerDamaged");
+        }
     }
 }
