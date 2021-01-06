@@ -8,8 +8,9 @@ namespace GameLogic.Player
     [RequireComponent(typeof(Animator))]
     public class Player : MonoBehaviour
     {
-        [SerializeField] private float _playerSpeed;
-        [SerializeField] private float _attackCooldownSec;
+        [SerializeField] private float _playerSpeed = 200f;
+        [SerializeField] private float _attackCooldownSec = 0.1f;
+        [SerializeField] private int _health = 20;
         
         private IInputService _inputService;
         private ITimeService _timeService;
@@ -63,7 +64,13 @@ namespace GameLogic.Player
 
         public void Damage(int damage)
         {
-            Debug.Log("PlayerDamaged");
+            if(_health <= 0)
+                return;
+            
+            _health -= damage;
+            Debug.Log($"Player damaged by {damage}. Current health: {_health}");
+            if(_health <= 0)
+                Debug.Log("Game over!");
         }
     }
 }
