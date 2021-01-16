@@ -1,4 +1,5 @@
-﻿using Infrastructure.Services;
+﻿using System;
+using Infrastructure.Services;
 using Infrastructure.Services.Abstract;
 using UnityEngine;
 
@@ -11,6 +12,8 @@ namespace GameLogic.Player
         [SerializeField] private float _playerSpeed = 200f;
         [SerializeField] private float _attackCooldownSec = 0.1f;
         [SerializeField] private int _health = 20;
+
+        public event Action<Player> OnDeath;
         
         private IInputService _inputService;
         private ITimeService _timeService;
@@ -70,7 +73,10 @@ namespace GameLogic.Player
             _health -= damage;
             Debug.Log($"Player damaged by {damage}. Current health: {_health}");
             if(_health <= 0)
+            {
+                OnDeath?.Invoke(this);
                 Debug.Log("Game over!");
+            }
         }
     }
 }
