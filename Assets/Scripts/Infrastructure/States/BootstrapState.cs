@@ -42,7 +42,7 @@ namespace Infrastructure.States
             RegisterFactories();
             _services.RegisterSingle<IInputService>(new InputService());
             _services.RegisterSingle<ISceneLoader>(new SceneLoader(_services.Single<IRuntimeService>()));
-           // _services.RegisterSingle<IAnimationClipsService>(new ANimation);
+            _services.RegisterSingle<IAnimationClipsService>(new AnimationClipService(_services.Single<IAnimationFactory>()));
         }
 
         private void RegisterFactories()
@@ -50,6 +50,7 @@ namespace Infrastructure.States
             _services.RegisterSingle<IEnemyFactory>(new EnemyFactory());
             _services.RegisterSingle<ICameraFactory>(new CameraFactory());
             _services.RegisterSingle<IPlayerFactory>(new PlayerFactory());
+            _services.RegisterSingle<IAnimationFactory>(new AnimationFactory());
         }
 
         private void RegisterRuntimeService()

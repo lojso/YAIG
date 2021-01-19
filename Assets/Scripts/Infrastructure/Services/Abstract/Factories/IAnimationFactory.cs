@@ -2,7 +2,7 @@
 
 namespace Infrastructure.Services.Abstract.Factories
 {
-    public interface IAnimationFactory
+    public interface IAnimationFactory : IService
     {
         Animator CreateAnimationClipPrefab();
     }

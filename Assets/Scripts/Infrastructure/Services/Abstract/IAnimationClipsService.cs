@@ -2,7 +2,7 @@
 
 namespace Infrastructure.Services.Abstract
 {
-    public interface IAnimationClipsService
+    public interface IAnimationClipsService : IService
     {
         void PlayTestAnimation();
         void PlayAnotherAnimation();
