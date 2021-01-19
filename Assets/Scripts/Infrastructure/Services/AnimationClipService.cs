@@ -6,29 +6,40 @@ namespace Infrastructure.Services
 {
     public class AnimationClipService : IAnimationClipsService
     {
-        private readonly IAnimationFactory _animationFactory;
         private readonly int TestAnimationTrigger = Animator.StringToHash("TestAnimation");
         private readonly int AnotherAnimationTrigger = Animator.StringToHash("AnotherAnimation");
         private readonly string IdleAnimationStateName = "IdleAnimation";
-        private readonly Animator _animator;
+        private readonly IAnimationFactory _animationFactory;
 
-        private bool IsIdle => _animator.GetCurrentAnimatorStateInfo(0).IsName(IdleAnimationStateName);
 
-        public AnimationClipService(IAnimationFactory _animationFactory)
+        public Animator Animator
         {
-            this._animationFactory = _animationFactory;
+            get
+            {
+                if (_animator == null)
+                    _animator = _animationFactory.CreateAnimationClipPrefab();
+                return _animator;
+            }
+        }
+        private Animator _animator;
+        private bool IsIdle => Animator.GetCurrentAnimatorStateInfo(0).IsName(IdleAnimationStateName);
+
+
+        public AnimationClipService(IAnimationFactory animationFactory)
+        {
+            _animationFactory = animationFactory;
         }
 
         public void PlayTestAnimation()
         {
             if(IsIdle)
-                _animator.Play(TestAnimationTrigger);
+                Animator.Play(TestAnimationTrigger);
         }
 
         public void PlayAnotherAnimation()
         {
             if(IsIdle)
-                _animator.Play(AnotherAnimationTrigger);
+                Animator.Play(AnotherAnimationTrigger);
         }
     }
 }
