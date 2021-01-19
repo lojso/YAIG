@@ -42,6 +42,7 @@ namespace Infrastructure.States
             RegisterFactories();
             _services.RegisterSingle<IInputService>(new InputService());
             _services.RegisterSingle<ISceneLoader>(new SceneLoader(_services.Single<IRuntimeService>()));
+           // _services.RegisterSingle<IAnimationClipsService>(new ANimation);
         }
 
         private void RegisterFactories()

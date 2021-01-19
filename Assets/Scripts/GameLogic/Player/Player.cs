@@ -75,7 +75,6 @@ namespace GameLogic.Player
             if(_health <= 0)
             {
                 OnDeath?.Invoke(this);
-                Debug.Log("Game over!");
             }
         }
     }
