@@ -7,6 +7,7 @@ namespace Infrastructure.Services.Factories
     {
         public Animator CreateAnimationClipPrefab()
         {
+            // TODO: Create canvas too!
             var cameraPrefab = Resources.Load<Animator>(AssetsPath.AnimationClip);
             return Object.Instantiate(cameraPrefab);
         }
