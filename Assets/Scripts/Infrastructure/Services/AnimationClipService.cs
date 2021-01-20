@@ -17,7 +17,9 @@ namespace Infrastructure.Services
             get
             {
                 if (_animator == null)
+                {
                     _animator = _animationFactory.CreateAnimationClipPrefab();
+                }
                 return _animator;
             }
         }

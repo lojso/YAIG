@@ -6,5 +6,6 @@
         public const string Player = "Prefabs/Player";
         public const string Camera = "Prefabs/Main Camera";
         public const string AnimationClip = "Prefabs/ClipAnimation/Animation";
+        public const string Canvas = "Prefabs/UI/Canvas";
     }
 }

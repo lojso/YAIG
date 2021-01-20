@@ -50,7 +50,8 @@ namespace Infrastructure.States
             _services.RegisterSingle<IEnemyFactory>(new EnemyFactory());
             _services.RegisterSingle<ICameraFactory>(new CameraFactory());
             _services.RegisterSingle<IPlayerFactory>(new PlayerFactory());
-            _services.RegisterSingle<IAnimationFactory>(new AnimationFactory());
+            _services.RegisterSingle<IUiFactory>(new UiFactory());
+            _services.RegisterSingle<IAnimationFactory>(new AnimationFactory(_services.Single<IUiFactory>()));
         }
 
         private void RegisterRuntimeService()
