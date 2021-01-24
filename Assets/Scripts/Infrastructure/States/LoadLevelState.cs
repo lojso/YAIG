@@ -10,14 +10,16 @@ namespace Infrastructure.States
         private readonly ISceneLoader _sceneLoader;
         private readonly ICameraFactory _cameraFactory;
         private readonly IPlayerFactory _playerFactory;
+        private readonly IUiFactory _uiFactory;
 
         public LoadLevelState(StateMachine stateMachine, ISceneLoader sceneLoader, ICameraFactory cameraFactory,
-            IPlayerFactory playerFactory)
+            IPlayerFactory playerFactory, IUiFactory uiFactory)
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
             _cameraFactory = cameraFactory;
             _playerFactory = playerFactory;
+            _uiFactory = uiFactory;
         }
 
         public void Enter(string levelName)
@@ -36,6 +38,7 @@ namespace Infrastructure.States
             player.transform.position = new Vector3(4.5f, 1.5f, 0f);
 
             var camera = _cameraFactory.CreateCamera();
+            var ui = _uiFactory.CreateUi();
             _stateMachine.Enter<GameLoopState>();
         }
     }

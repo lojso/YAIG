@@ -16,7 +16,11 @@ namespace Infrastructure.Services
                 Transform = uiFactory.Ui.Frame.transform;
             }
 
-            uiFactory.OnUiCreated += ui => Transform = ui.Frame.transform;
+            uiFactory.OnUiCreated += ui =>
+            {
+                Debug.Log("Ui created!");
+                Transform = ui.Frame.transform;
+            };
         }
 
         protected override void OnShakePosition() => 

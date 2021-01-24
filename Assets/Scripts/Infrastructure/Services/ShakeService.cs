@@ -21,12 +21,14 @@ namespace Infrastructure.Services
 
         public void ShakePosition(float force, float duration)
         {
+            StopShake();
             _positionShakeRoutine = _runtimeService.StartCoroutine(ShakePositionRoutine(force, duration));
             OnShakePosition();
         }
 
         public void ShakeRotation(float force, float duration)
         {
+            StopShake();
             _rotationShakeRoutine = _runtimeService.StartCoroutine(ShakeRotationRoutine(force, duration));
             OnShakeRotation();
         }
@@ -37,6 +39,8 @@ namespace Infrastructure.Services
             _runtimeService.StopCoroutine(_rotationShakeRoutine);
             DropPositionOffset();
             DropRotationOffset();
+            _angleOffset = 0f;
+            _positionOffset = Vector3.zero;
 
             OnStopShake();
         }
@@ -56,6 +60,7 @@ namespace Infrastructure.Services
                 yield return null;
             }
             DropPositionOffset();
+            _positionOffset = Vector3.zero;
             OnStopShake();
         }
 
@@ -66,13 +71,13 @@ namespace Infrastructure.Services
             while (time > 0)
             {
                 DropRotationOffset();
-                
                 _angleOffset = Random.Range(-force, force);
                 Transform.Rotate(Vector3.forward, _angleOffset);
                 time -= Time.deltaTime;
                 yield return null;
             }
             DropRotationOffset();
+            _angleOffset = 0f;
             OnStopShake();
         }
 
