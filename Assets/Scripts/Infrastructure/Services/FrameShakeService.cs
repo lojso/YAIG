@@ -18,5 +18,14 @@ namespace Infrastructure.Services
 
             uiFactory.OnUiCreated += ui => Transform = ui.Frame.transform;
         }
+
+        protected override void OnShakePosition() => 
+            Transform.gameObject.SetActive(true);
+
+        protected override void OnShakeRotation() => 
+            Transform.gameObject.SetActive(true);
+
+        protected override void OnStopShake() => 
+            Transform.gameObject.SetActive(false);
     }
 }

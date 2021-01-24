@@ -22,11 +22,13 @@ namespace Infrastructure.Services
         public void ShakePosition(float force, float duration)
         {
             _positionShakeRoutine = _runtimeService.StartCoroutine(ShakePositionRoutine(force, duration));
+            OnShakePosition();
         }
 
         public void ShakeRotation(float force, float duration)
         {
             _rotationShakeRoutine = _runtimeService.StartCoroutine(ShakeRotationRoutine(force, duration));
+            OnShakeRotation();
         }
 
         public void StopShake()
@@ -35,6 +37,8 @@ namespace Infrastructure.Services
             _runtimeService.StopCoroutine(_rotationShakeRoutine);
             DropPositionOffset();
             DropRotationOffset();
+
+            OnStopShake();
         }
 
         private IEnumerator ShakePositionRoutine(float force, float duration)
@@ -52,6 +56,7 @@ namespace Infrastructure.Services
                 yield return null;
             }
             DropPositionOffset();
+            OnStopShake();
         }
 
         private IEnumerator ShakeRotationRoutine(float force, float duration)
@@ -68,6 +73,7 @@ namespace Infrastructure.Services
                 yield return null;
             }
             DropRotationOffset();
+            OnStopShake();
         }
 
         private void DropRotationOffset() => 
@@ -75,5 +81,9 @@ namespace Infrastructure.Services
 
         private void DropPositionOffset() => 
             Transform.localPosition -= _positionOffset;
+        
+        protected virtual void OnShakePosition() { }
+        protected virtual void OnShakeRotation() { }
+        protected virtual void OnStopShake() { }
     }
 }
