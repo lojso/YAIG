@@ -10,7 +10,10 @@ namespace Infrastructure.Services
         
         public CameraShakeService(ICameraFactory cameraFactory, IRuntimeService runtimeService) : base(runtimeService)
         {
-            Transform = cameraFactory.Camera.transform;
+            if (cameraFactory.Camera != null)
+            {
+                Transform = cameraFactory.Camera.transform;
+            }
             cameraFactory.OnCameraCreated += camera => Transform = camera.transform;
         }
     }

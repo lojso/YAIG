@@ -15,7 +15,12 @@ namespace Infrastructure.Services
         public Coroutine StartCoroutine(IEnumerator coroutine) => 
             base.StartCoroutine(coroutine);
 
-        public void StopCoroutine(Coroutine coroutine) => 
-            base.StopCoroutine(coroutine);
+        public void StopCoroutine(Coroutine coroutine)
+        {
+            if (coroutine != null)
+            {
+                base.StopCoroutine(coroutine);
+            }
+        }
     }
 }
