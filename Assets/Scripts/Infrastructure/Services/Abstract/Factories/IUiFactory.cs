@@ -1,13 +1,14 @@
 ﻿using System;
+using UI;
 using UnityEngine;
 
 namespace Infrastructure.Services.Abstract.Factories
 {
     public interface IUiFactory : IService
     {
-        event Action<Canvas> OnCanvasCreated;
-        Canvas Canvas { get; }
+        event Action<UiHolder> OnUiCreated;
+        UiHolder Ui { get; }
         
-        Canvas CreateCanvas();
+        UiHolder CreateUi();
     }
 }

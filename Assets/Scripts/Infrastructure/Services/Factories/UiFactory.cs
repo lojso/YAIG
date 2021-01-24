@@ -1,5 +1,6 @@
 ﻿using System;
 using Infrastructure.Services.Abstract.Factories;
+using UI;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -7,16 +8,17 @@ namespace Infrastructure.Services.Factories
 {
     public class UiFactory : IUiFactory
     {
-        public event Action<Canvas> OnCanvasCreated;
+        public event Action<UiHolder> OnUiCreated;
         
-        public Canvas Canvas { get; private set; }
+        public UiHolder Ui { get; private set; }
 
-        public Canvas CreateCanvas()
+
+        public UiHolder CreateUi()
         {
-            var canvasPrefab = Resources.Load<Canvas>(AssetsPath.Canvas);
-            Canvas = Object.Instantiate(canvasPrefab);
-            OnCanvasCreated?.Invoke(Canvas);
-            return Canvas;
+            var canvasPrefab = Resources.Load<UiHolder>(AssetsPath.Canvas);
+            Ui = Object.Instantiate(canvasPrefab);
+            OnUiCreated?.Invoke(Ui);
+            return Ui;
         }
     }
 }

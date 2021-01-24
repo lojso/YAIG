@@ -16,11 +16,11 @@ namespace Infrastructure.Services.Factories
         public Animator CreateAnimationClipPrefab()
         {
             var animationClip = Resources.Load<Animator>(AssetsPath.AnimationClip);
-            if (_uiFactory.Canvas == null)
+            if (_uiFactory.Ui == null)
             {
-                _uiFactory.CreateCanvas();
+                _uiFactory.CreateUi();
             }
-            return Object.Instantiate(animationClip, _uiFactory.Canvas.transform);
+            return Object.Instantiate(animationClip, _uiFactory.Ui.Canvas.transform);
         }
     }
 }
