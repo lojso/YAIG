@@ -12,14 +12,10 @@ namespace Infrastructure.Services
             DontDestroyOnLoad(this);
         }
 
-        public void StartCoroutine(IEnumerator coroutine)
-        {
+        public Coroutine StartCoroutine(IEnumerator coroutine) => 
             base.StartCoroutine(coroutine);
-        }
 
-        public void StopCoroutine(IEnumerator coroutine)
-        {
+        public void StopCoroutine(Coroutine coroutine) => 
             base.StopCoroutine(coroutine);
-        }
     }
 }

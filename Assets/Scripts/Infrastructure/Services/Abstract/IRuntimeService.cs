@@ -1,10 +1,11 @@
 ﻿using System.Collections;
+using UnityEngine;
 
 namespace Infrastructure.Services.Abstract
 {
     public interface IRuntimeService : IService
     {
-        void StartCoroutine(IEnumerator coroutine);
-        void StopCoroutine(IEnumerator coroutine);
+        Coroutine StartCoroutine(IEnumerator coroutine);
+        void StopCoroutine(Coroutine coroutine);
     }
 }
