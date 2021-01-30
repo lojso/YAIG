@@ -17,6 +17,7 @@ namespace Infrastructure.Services.Factories
         {
             var canvasPrefab = Resources.Load<UiHolder>(AssetsPath.Canvas);
             Ui = Object.Instantiate(canvasPrefab);
+            Ui.Frame.SetActive(false);
             OnUiCreated?.Invoke(Ui);
             return Ui;
         }
