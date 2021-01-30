@@ -6,5 +6,6 @@ namespace UI
     {
         public GameObject Canvas;
         public GameObject Frame;
+        public GameObject Cutscene;
     }
 }

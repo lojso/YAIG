@@ -11,8 +11,7 @@ namespace Infrastructure.Services.Factories
         public event Action<UiHolder> OnUiCreated;
         
         public UiHolder Ui { get; private set; }
-
-
+        
         public UiHolder CreateUi()
         {
             var canvasPrefab = Resources.Load<UiHolder>(AssetsPath.Canvas);

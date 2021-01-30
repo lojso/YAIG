@@ -43,6 +43,7 @@ namespace Infrastructure.States
             _services.RegisterSingle<IInputService>(new InputService());
             _services.RegisterSingle<ISceneLoader>(new SceneLoader(_services.Single<IRuntimeService>()));
             _services.RegisterSingle<IAnimationClipsService>(new AnimationClipService(_services.Single<IAnimationFactory>()));
+            _services.RegisterSingle<ICutsceneService>(new CutsceneService(_services.Single<IUiFactory>()));
             RegisterShakeServices();
         }
 
