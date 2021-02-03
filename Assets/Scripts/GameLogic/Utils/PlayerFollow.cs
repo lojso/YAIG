@@ -2,7 +2,7 @@
 using Infrastructure.Services.Abstract.Factories;
 using UnityEngine;
 
-namespace GameLogic
+namespace GameLogic.Helpers
 {
     [RequireComponent(typeof(Camera))]
     public class PlayerFollow : MonoBehaviour

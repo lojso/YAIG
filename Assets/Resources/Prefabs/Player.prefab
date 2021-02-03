@@ -106,7 +106,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerSpeed: 200
   _attackCooldownSec: 0.1
-  _health: 3
+  _health: 200
 --- !u!70 &7013935357256410281
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
