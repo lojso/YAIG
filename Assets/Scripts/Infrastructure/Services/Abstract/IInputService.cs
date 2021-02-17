@@ -4,5 +4,6 @@
     {
         float GetHorizontalInput();
         bool IsAttackPressed();
+        bool IsBlockPressed();
     }
 }

@@ -21,6 +21,7 @@ namespace GameLogic.Player
         private PlayerAnimator _animator;
         private CreatureMover _mover;
         private bool _canAttack;
+        private bool _canBlock;
 
         private void Awake()
         {
@@ -31,12 +32,22 @@ namespace GameLogic.Player
             _mover = new CreatureMover(GetComponent<Rigidbody2D>());
 
             _canAttack = true;
+            _canBlock = true;
         }
 
         private void Update()
         {
             ProcessMovementInput();
+            ProcessBlock();
             ProcessAttack();
+        }
+
+        private void ProcessBlock()
+        {
+            if (!_inputService.IsBlockPressed() || !_canBlock)
+                return;
+                
+            _animator.Block();
         }
 
         private void ProcessAttack()
@@ -54,6 +65,7 @@ namespace GameLogic.Player
         {
             _velocity = Vector2.zero;
             _velocity.x = _inputService.GetHorizontalInput();
+            _animator.SetMovementVector(_velocity);
         }
 
         private void FixedUpdate()

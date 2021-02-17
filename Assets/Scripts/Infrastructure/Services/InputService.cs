@@ -14,5 +14,10 @@ namespace Infrastructure.Services
         {
             return Input.GetKeyDown(KeyCode.Space);
         }
+
+        public bool IsBlockPressed()
+        {
+            return Input.GetKeyDown(KeyCode.LeftShift);
+        }
     }
 }
