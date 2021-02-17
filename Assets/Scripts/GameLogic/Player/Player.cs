@@ -83,6 +83,7 @@ namespace GameLogic.Player
                 return;
             
             _health -= damage;
+            _animator.GetHit();
             Debug.Log($"Player damaged by {damage}. Current health: {_health}");
             if(_health <= 0)
             {
