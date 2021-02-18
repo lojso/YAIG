@@ -40,6 +40,10 @@ namespace GameLogic.Player
             ProcessMovementInput();
             ProcessBlock();
             ProcessAttack();
+            if (Input.GetKeyDown(KeyCode.B))
+            {
+                Damage(1);
+            }
         }
 
         private void ProcessBlock()

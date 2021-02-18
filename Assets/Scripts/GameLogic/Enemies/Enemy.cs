@@ -1,6 +1,5 @@
 ﻿using Infrastructure.Services;
 using Infrastructure.Services.Abstract;
-using UnityEditorInternal;
 using UnityEngine;
 
 namespace GameLogic.Enemies
@@ -10,7 +9,7 @@ namespace GameLogic.Enemies
     public class Enemy : MonoBehaviour, IDamageable
     {
         [SerializeField] private float _detectionRange = 2f;
-        [SerializeField] private float _attackDistance = 0.1f;
+        [SerializeField] private float _attackDistance = 0.2f;
         [SerializeField] private float _attackCooldownSec = 1.3f;
         [SerializeField] private float _speed = 50f;
         [SerializeField] private int _hp = 3;
@@ -95,8 +94,8 @@ namespace GameLogic.Enemies
             if (!IsPlayerFound())
                 return;
 
-            _mover.RotateDirection(_playerRaycastHit.transform.position - transform.position);
-            _mover.Move(LocalForward, _speed * Time.deltaTime);
+            //_mover.RotateDirection(_playerRaycastHit.transform.position - transform.position);
+            _mover.Move(_playerRaycastHit.transform.position - transform.position, _speed * Time.deltaTime);
         }
 
         private void Death()
