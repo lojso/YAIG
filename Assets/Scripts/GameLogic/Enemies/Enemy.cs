@@ -22,18 +22,25 @@ namespace GameLogic.Enemies
         private bool _attackCooldownFinished;
         private RaycastHit2D _playerRaycastHit;
         private ITimeService _timeService;
+        private Rigidbody2D _rigidBody;
+        private bool _isDead;
 
         private void Awake()
         {
             _timeService = ServicesContainer.Instance.Single<ITimeService>();
-            
-            _mover = new CreatureMover(GetComponent<Rigidbody2D>());
+
+            _rigidBody = GetComponent<Rigidbody2D>();
+            _mover = new CreatureMover(_rigidBody);
             _animator = new EnemyAnimator(GetComponent<Animator>());
             _attackCooldownFinished = true;
+            _isDead = false;
         }
 
         private void Update()
         {
+            if(_isDead)
+                return;
+            
             SearchPlayer();
             ProcessAttack();
             ProcessMovingToPlayer();
@@ -43,8 +50,14 @@ namespace GameLogic.Enemies
         {
             _hp -= amount;
             Debug.Log($"Damage {gameObject.name} for {amount} hp");
-            if (_hp <= 0)
+            if (_hp > 0)
+            {
+                _animator.GetHit();
+            }
+            else
+            {
                 Death();
+            }
         }
 
         private void SearchPlayer()
@@ -91,16 +104,18 @@ namespace GameLogic.Enemies
 
         private void ProcessMovingToPlayer()
         {
+            _animator.SetMovementVector(_rigidBody.velocity);
             if (!IsPlayerFound())
                 return;
 
-            //_mover.RotateDirection(_playerRaycastHit.transform.position - transform.position);
             _mover.Move(_playerRaycastHit.transform.position - transform.position, _speed * Time.deltaTime);
         }
 
         private void Death()
         {
-            Destroy(gameObject);
+            _isDead = true;
+            _animator.PlayDeathAnimation();
+            Destroy(gameObject, 5f);
         }
 
         private void OnDrawGizmos()

@@ -8,6 +8,7 @@ namespace GameLogic.Enemies
         private static readonly int _walking = Animator.StringToHash("IsWalking");
         private static readonly int _pucnh = Animator.StringToHash("Attack");
         private static readonly int _recieveDamage = Animator.StringToHash("ReceiveDamage");
+        private static readonly int _death = Animator.StringToHash("Death");
 
         public EnemyAnimator(Animator animator)
         {
@@ -24,6 +25,11 @@ namespace GameLogic.Enemies
         {
             var isMoving = Mathf.Abs(velocity.x) >= float.Epsilon;
             _animator.SetBool(_walking, isMoving);
+        }
+
+        public void PlayDeathAnimation()
+        {
+            _animator.SetTrigger(_death);
         }
     }
 }
