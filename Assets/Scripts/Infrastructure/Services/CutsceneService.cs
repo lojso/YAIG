@@ -6,7 +6,8 @@ namespace Infrastructure.Services
 {
     public class CutsceneService : ICutsceneService
     {
-        private static readonly int DickButtTrigger = Animator.StringToHash("dickButt");
+        private static readonly int _dickButtTrigger = Animator.StringToHash("dickButt");
+        private static readonly int _racoonTrigger = Animator.StringToHash("racoon");
         
         private Animator _animator;
 
@@ -30,7 +31,18 @@ namespace Infrastructure.Services
                 return;
             }
             
-            _animator.SetTrigger(DickButtTrigger);
+            _animator.SetTrigger(_dickButtTrigger);
+        }
+
+        public void PlayPlayRacoon()
+        {
+            if (_animator == null)
+            {
+                Debug.LogError("CutscenesService: cant play cutscenes without animator");
+                return;
+            }
+            
+            _animator.SetTrigger(_racoonTrigger);
         }
     }
 }
