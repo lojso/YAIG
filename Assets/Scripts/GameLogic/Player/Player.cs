@@ -1,5 +1,4 @@
 ﻿using System;
-using Infrastructure.Services;
 using Infrastructure.Services.Abstract;
 using UnityEngine;
 
@@ -23,12 +22,17 @@ namespace GameLogic.Player
         private bool _canAttack;
         private bool _canBlock;
 
+        public void Construct(IInputService inputService, ITimeService timeService)
+        {
+            _inputService = inputService;
+            _timeService = timeService;
+        }
+
         private void Awake()
         {
-            _inputService = ServicesContainer.Instance.Single<IInputService>();
-            _timeService = ServicesContainer.Instance.Single<ITimeService>();
-            _animator = new PlayerAnimator(GetComponent<Animator>());
 
+            
+            _animator = new PlayerAnimator(GetComponent<Animator>());
             _mover = new CreatureMover(GetComponent<Rigidbody2D>());
 
             _canAttack = true;

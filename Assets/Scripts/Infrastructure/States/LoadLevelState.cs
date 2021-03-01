@@ -11,15 +11,17 @@ namespace Infrastructure.States
         private readonly ICameraFactory _cameraFactory;
         private readonly IPlayerFactory _playerFactory;
         private readonly IUiFactory _uiFactory;
+        private readonly IFrameShakeService _frameShakeService;
 
         public LoadLevelState(StateMachine stateMachine, ISceneLoader sceneLoader, ICameraFactory cameraFactory,
-            IPlayerFactory playerFactory, IUiFactory uiFactory)
+            IPlayerFactory playerFactory, IUiFactory uiFactory, IFrameShakeService frameShakeService)
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
             _cameraFactory = cameraFactory;
             _playerFactory = playerFactory;
             _uiFactory = uiFactory;
+            _frameShakeService = frameShakeService;
         }
 
         public void Enter(string levelName)
@@ -39,6 +41,9 @@ namespace Infrastructure.States
 
             var camera = _cameraFactory.CreateCamera();
             var ui = _uiFactory.CreateUi();
+            
+            _frameShakeService.SetUiTransform(ui.transform);
+            
             _stateMachine.Enter<GameLoopState>();
         }
     }

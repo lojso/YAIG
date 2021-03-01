@@ -9,19 +9,10 @@ namespace Infrastructure.Services
     {
         protected override Transform Transform { get; set; }
         
-        public FrameShakeService(IUiFactory uiFactory, IRuntimeService runtimeService) : base(runtimeService)
-        {
-            if (uiFactory.Ui != null)
-            {
-                Transform = uiFactory.Ui.Frame.transform;
-            }
+        public FrameShakeService(IRuntimeService runtimeService) : base(runtimeService) { }
 
-            uiFactory.OnUiCreated += ui =>
-            {
-                Debug.Log("Ui created!");
-                Transform = ui.Frame.transform;
-            };
-        }
+        public void SetUiTransform(Transform transform) => 
+            Transform = transform;
 
         protected override void OnShakePosition() => 
             Transform.gameObject.SetActive(true);

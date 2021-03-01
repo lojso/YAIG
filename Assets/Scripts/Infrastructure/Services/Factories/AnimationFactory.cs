@@ -16,12 +16,7 @@ namespace Infrastructure.Services.Factories
         public Animator CreateAnimationClipPrefab()
         {
             var animationClip = Resources.Load<Animator>(AssetsPath.AnimationClip);
-            
-            if (_uiFactory.Ui == null)
-            {
-                _uiFactory.CreateUi();
-            }
-            
+
             return Object.Instantiate(animationClip, _uiFactory.Ui.Canvas.transform);
         }
 
