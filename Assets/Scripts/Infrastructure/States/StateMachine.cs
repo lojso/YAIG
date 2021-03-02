@@ -18,7 +18,9 @@ namespace Infrastructure.States
                 [typeof(BootstrapState)] = new BootstrapState(this, services),
                 [typeof(LoadLevelState)] = new LoadLevelState(this, services.Single<ISceneLoader>(),
                     services.Single<ICameraFactory>(), services.Single<IPlayerFactory>(),
-                    services.Single<IUiFactory>(), services.Single<IFrameShakeService>()),
+                    services.Single<IUiFactory>(), services.Single<IFrameShakeService>(),
+                    services.Single<IEnemyFactory>(), services.Single<ITimeService>(),
+                    services.Single<IAnimationClipsService>()),
                 [typeof(GameLoopState)] = new GameLoopState(this),
             };
         }

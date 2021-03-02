@@ -1,5 +1,4 @@
-﻿using Infrastructure.Services;
-using Infrastructure.Services.Abstract;
+﻿using Infrastructure.Services.Abstract;
 using Infrastructure.Services.Abstract.Factories;
 using UnityEngine;
 
@@ -7,31 +6,26 @@ namespace GameLogic.Enemies
 {
     public class EnemySpawner : MonoBehaviour
     {
-        [Tooltip("Через сколько секунд начинается спавн противника")] [SerializeField]
-        private float _spawnTime = 1f;
-
+        [SerializeField] private Enemy enemyPrefab;
+        
         private IEnemyFactory _factory;
-        private float _spawnCooldown;
+        private IAnimationClipsService _animationClips;
+        private ITimeService _timeService;
 
-        private void Awake()
+        public void Construct(IEnemyFactory enemyFactory, IAnimationClipsService animationClipsService,
+            ITimeService timeService)
         {
-            _factory = ServicesContainer.Instance.Single<IEnemyFactory>();
-            _spawnCooldown = _spawnTime;
+            _factory = enemyFactory;
+            _animationClips = animationClipsService;
+            _timeService = timeService;
         }
 
-        private void FixedUpdate()
+        public Enemy CreateEnemy()
         {
-            if (_spawnCooldown <= 0)
-            {
-                var enemy = _factory.SpawnEnemy();
-                enemy.transform.position = transform.position;
-
-                _spawnCooldown = _spawnTime;
-            }
-            else
-            {
-                _spawnCooldown -= Time.fixedDeltaTime;
-            }
+            var enemy = _factory.SpawnEnemy().GetComponent<Enemy>();
+            enemy.transform.position = transform.position;
+            enemy.Construct(_timeService, _animationClips);
+            return enemy;
         }
     }
 }

@@ -24,11 +24,16 @@ namespace GameLogic.Enemies
         private ITimeService _timeService;
         private Rigidbody2D _rigidBody;
         private bool _isDead;
+        private IAnimationClipsService _animationClipService;
+
+        public void Construct(ITimeService timeService, IAnimationClipsService animationClipsService)
+        {
+            _timeService = timeService;
+            _animationClipService = animationClipsService;
+        }
 
         private void Awake()
         {
-            _timeService = ServicesContainer.Instance.Single<ITimeService>();
-
             _rigidBody = GetComponent<Rigidbody2D>();
             _mover = new CreatureMover(_rigidBody);
             _animator = new EnemyAnimator(GetComponent<Animator>());
