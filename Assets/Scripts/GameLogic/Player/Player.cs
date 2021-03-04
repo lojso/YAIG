@@ -1,4 +1,5 @@
 ﻿using System;
+using GameLogic.Enemies;
 using Infrastructure.Services.Abstract;
 using UnityEngine;
 
@@ -21,11 +22,14 @@ namespace GameLogic.Player
         private CreatureMover _mover;
         private bool _canAttack;
         private bool _canBlock;
+        private ScreenShaker _shaker;
 
-        public void Construct(IInputService inputService, ITimeService timeService)
+        public void Construct(IInputService inputService, ITimeService timeService, IFrameShakeService frameShake,
+            ICameraShakeService cameraShakeService)
         {
             _inputService = inputService;
             _timeService = timeService;
+            _shaker = new ScreenShaker(frameShake, cameraShakeService);
         }
 
         private void Awake()
@@ -44,10 +48,6 @@ namespace GameLogic.Player
             ProcessMovementInput();
             ProcessBlock();
             ProcessAttack();
-            if (Input.GetKeyDown(KeyCode.B))
-            {
-                Damage(1);
-            }
         }
 
         private void ProcessBlock()
@@ -85,14 +85,15 @@ namespace GameLogic.Player
             _mover.Move(_velocity.normalized, _playerSpeed * Time.fixedDeltaTime);
         }
 
-        public void Damage(int damage)
+        public void Damage(PlayerDamageInfo damageInfo)
         {
             if(_health <= 0)
                 return;
             
-            _health -= damage;
+            _health -= damageInfo.Damage;
+            _shaker.Shake(damageInfo.ShakeType);
             _animator.GetHit();
-            Debug.Log($"Player damaged by {damage}. Current health: {_health}");
+            Debug.Log($"Player damaged by {damageInfo}. Current health: {_health}");
             if(_health <= 0)
             {
                 OnDeath?.Invoke(this);

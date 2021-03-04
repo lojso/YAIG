@@ -42,36 +42,31 @@ namespace Infrastructure.States
             RegisterRuntimeService();
             
             RegisterTimeService();
-            
-            RegisterFactories();
-            
+
+            _services.RegisterSingle<IEnemyFactory>(new EnemyFactory());
+            _services.RegisterSingle<ICameraFactory>(new CameraFactory());
+            _services.RegisterSingle<IUiFactory>(new UiFactory());
+
+            _services.RegisterSingle<ICameraShakeService>(new CameraShakeService(
+                _services.Single<ICameraFactory>(),
+                _services.Single<IRuntimeService>()));
+
+            _services.RegisterSingle<IFrameShakeService>(new FrameShakeService(
+                _services.Single<IRuntimeService>()));
+
+            _services.RegisterSingle<IPlayerFactory>(new PlayerFactory(
+                _services.Single<IInputService>(),
+                _services.Single<ITimeService>(),
+                _services.Single<IFrameShakeService>(),
+                _services.Single<ICameraShakeService>()));
+
+            _services.RegisterSingle<IAnimationFactory>(new AnimationFactory(_services.Single<IUiFactory>()));
+
             _services.RegisterSingle<ISceneLoader>(new SceneLoader(_services.Single<IRuntimeService>()));
             
             _services.RegisterSingle<IAnimationClipsService>(new AnimationClipService(_services.Single<IAnimationFactory>()));
             
             _services.RegisterSingle<ICutsceneService>(new CutsceneService(_services.Single<IUiFactory>()));
-            
-            RegisterShakeServices();
-        }
-
-        private void RegisterFactories()
-        {
-            _services.RegisterSingle<IEnemyFactory>(new EnemyFactory());
-            _services.RegisterSingle<ICameraFactory>(new CameraFactory());
-            _services.RegisterSingle<IPlayerFactory>(new PlayerFactory(
-                _services.Single<IInputService>(),
-                _services.Single<ITimeService>()));
-            _services.RegisterSingle<IUiFactory>(new UiFactory());
-            _services.RegisterSingle<IAnimationFactory>(new AnimationFactory(_services.Single<IUiFactory>()));
-        }
-
-        private void RegisterShakeServices()
-        {
-            _services.RegisterSingle<ICameraShakeService>(new CameraShakeService(
-                _services.Single<ICameraFactory>(),
-                _services.Single<IRuntimeService>()));
-            _services.RegisterSingle<IFrameShakeService>(new FrameShakeService(
-                _services.Single<IRuntimeService>()));
         }
 
         private void RegisterRuntimeService()

@@ -73,7 +73,7 @@ namespace Infrastructure.States
         {
             var camera = _cameraFactory.CreateCamera();
             var ui = _uiFactory.CreateUi();
-            _frameShakeService.SetUiTransform(ui.transform);
+            _frameShakeService.SetUiTransform(ui.Frame.transform);
         }
     }
 }

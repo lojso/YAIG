@@ -11,11 +11,15 @@ namespace Infrastructure.Services.Factories
     {
         private readonly IInputService _inputService;
         private readonly ITimeService _timeService;
+        private readonly IFrameShakeService _frameShakeService;
+        private readonly ICameraShakeService _cameraShakeService;
 
-        public PlayerFactory(IInputService inputService, ITimeService timeService)
+        public PlayerFactory(IInputService inputService, ITimeService timeService, IFrameShakeService frameShakeService, ICameraShakeService cameraShakeService)
         {
             _inputService = inputService;
             _timeService = timeService;
+            _frameShakeService = frameShakeService;
+            _cameraShakeService = cameraShakeService;
         }
 
         public event Action<Player> OnPlayerCreated;
@@ -27,7 +31,7 @@ namespace Infrastructure.Services.Factories
             var playerPrefab = Resources.Load<Player>(AssetsPath.Player);
             
             Player = Object.Instantiate(playerPrefab);
-            Player.Construct(_inputService, _timeService);
+            Player.Construct(_inputService, _timeService, _frameShakeService, _cameraShakeService);
             OnPlayerCreated?.Invoke(Player);
             return Player;
         }
