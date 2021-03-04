@@ -10,6 +10,12 @@ namespace GameLogic.Player
         private static readonly int _recieveDamage = Animator.StringToHash("ReceiveDamage");
         private static readonly int _block = Animator.StringToHash("Block");
 
+        private static readonly string _idleState = "PlayerIdle";
+        private static readonly string _blockState = "PlayerBlock";
+        private static readonly string _walkState = "PlayerWalk";
+        private static readonly string _reciveHitState = "PlayerReciveHit";
+        private static readonly string _punchState = "PlayerPunch";
+
         public PlayerAnimator(Animator animator)
         {
             _animator = animator;
@@ -28,6 +34,16 @@ namespace GameLogic.Player
         {
             var isMoving = Mathf.Abs(velocity.x) >= float.Epsilon;
             _animator.SetBool(_walking, isMoving);
+        }
+
+        public bool IsIdle()
+        {
+            return _animator.GetCurrentAnimatorStateInfo(0).IsName(_idleState);
+        }
+
+        public bool IsWalking()
+        {
+            return _animator.GetCurrentAnimatorStateInfo(0).IsName(_walkState);
         }
     }
 }

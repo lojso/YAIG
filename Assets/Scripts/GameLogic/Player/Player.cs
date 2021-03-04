@@ -72,8 +72,11 @@ namespace GameLogic.Player
         private void ProcessMovementInput()
         {
             _velocity = Vector2.zero;
-            _velocity.x = _inputService.GetHorizontalInput();
-            _animator.SetMovementVector(_velocity);
+            if (_animator.IsIdle() || _animator.IsWalking())
+            {
+                _velocity.x = _inputService.GetHorizontalInput();
+                _animator.SetMovementVector(_velocity);
+            }
         }
 
         private void FixedUpdate()
