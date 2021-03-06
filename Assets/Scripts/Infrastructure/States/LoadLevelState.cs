@@ -1,4 +1,5 @@
-﻿using GameLogic.Enemies;
+﻿using GameLogic;
+using GameLogic.Enemies;
 using Infrastructure.Services.Abstract;
 using Infrastructure.Services.Abstract.Factories;
 using UnityEngine;
@@ -15,11 +16,11 @@ namespace Infrastructure.States
         private readonly IFrameShakeService _frameShakeService;
         private readonly IEnemyFactory _enemyFactory;
         private readonly ITimeService _timeService;
-        private readonly IAnimationClipsService _animationClipsService;
+        private readonly IAnimationPopupClipsService _animationPopupClipsService;
 
         public LoadLevelState(StateMachine stateMachine, ISceneLoader sceneLoader, ICameraFactory cameraFactory,
             IPlayerFactory playerFactory, IUiFactory uiFactory, IFrameShakeService frameShakeService,
-            IEnemyFactory enemyFactory, ITimeService timeService, IAnimationClipsService _animationClipsService)
+            IEnemyFactory enemyFactory, ITimeService timeService, IAnimationPopupClipsService animationPopupClipsService)
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
@@ -29,7 +30,7 @@ namespace Infrastructure.States
             _frameShakeService = frameShakeService;
             _enemyFactory = enemyFactory;
             _timeService = timeService;
-            this._animationClipsService = _animationClipsService;
+            _animationPopupClipsService = animationPopupClipsService;
         }
 
         public void Enter(string levelName)
@@ -54,12 +55,15 @@ namespace Infrastructure.States
 
         private void InitializeEnemies()
         {
-            var spawners = Object.FindObjectsOfType<EnemySpawner>();
+            var popupClips = new PopupClipsController(_animationPopupClipsService);
             
+            var spawners = Object.FindObjectsOfType<EnemySpawner>();
             foreach (var spawner in spawners)
             {
-                spawner.Construct(_enemyFactory, _animationClipsService, _timeService);
-                spawner.CreateEnemy();
+                spawner.Construct(_enemyFactory, _timeService);
+                var enemy = spawner.CreateEnemy();
+                
+                popupClips.RegisterEnemy(enemy);
             }
         }
 

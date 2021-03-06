@@ -1,4 +1,5 @@
-﻿using Infrastructure.Services;
+﻿using System;
+using Infrastructure.Services;
 using Infrastructure.Services.Abstract;
 using UnityEngine;
 
@@ -14,6 +15,8 @@ namespace GameLogic.Enemies
         [SerializeField] private float _speed = 50f;
         [SerializeField] private int _hp = 3;
         
+        public event Action<Enemy> OnDeath;
+        
         private const int PLAYER_LAYER_MASK = 1 << 8;
 
         private Vector2 LocalForward => transform.right;
@@ -24,12 +27,10 @@ namespace GameLogic.Enemies
         private ITimeService _timeService;
         private Rigidbody2D _rigidBody;
         private bool _isDead;
-        private IAnimationClipsService _animationClipService;
 
-        public void Construct(ITimeService timeService, IAnimationClipsService animationClipsService)
+        public void Construct(ITimeService timeService)
         {
             _timeService = timeService;
-            _animationClipService = animationClipsService;
         }
 
         private void Awake()
@@ -120,6 +121,7 @@ namespace GameLogic.Enemies
         {
             _isDead = true;
             _animator.PlayDeathAnimation();
+            OnDeath?.Invoke(this);
             Destroy(gameObject, 5f);
         }
 

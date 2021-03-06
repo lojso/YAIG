@@ -2,16 +2,15 @@
 using Infrastructure.Services.Abstract.Factories;
 using UnityEngine;
 
-namespace Infrastructure.Services
+namespace Infrastructure.Services.Animation
 {
-    public class AnimationClipService : IAnimationClipsService
+    public class MechanimAnimationClipService : IAnimationPopupClipsService
     {
         private readonly int TestAnimationTrigger = Animator.StringToHash("TestAnimation");
         private readonly int AnotherAnimationTrigger = Animator.StringToHash("AnotherAnimation");
         private readonly string IdleAnimationStateName = "IdleAnimation";
         private readonly IAnimationFactory _animationFactory;
-
-
+        
         public Animator Animator
         {
             get
@@ -27,7 +26,7 @@ namespace Infrastructure.Services
         private bool IsIdle => Animator.GetCurrentAnimatorStateInfo(0).IsName(IdleAnimationStateName);
 
 
-        public AnimationClipService(IAnimationFactory animationFactory)
+        public MechanimAnimationClipService(IAnimationFactory animationFactory)
         {
             _animationFactory = animationFactory;
         }

@@ -9,14 +9,11 @@ namespace GameLogic.Enemies
         [SerializeField] private Enemy enemyPrefab;
         
         private IEnemyFactory _factory;
-        private IAnimationClipsService _animationClips;
         private ITimeService _timeService;
 
-        public void Construct(IEnemyFactory enemyFactory, IAnimationClipsService animationClipsService,
-            ITimeService timeService)
+        public void Construct(IEnemyFactory enemyFactory, ITimeService timeService)
         {
             _factory = enemyFactory;
-            _animationClips = animationClipsService;
             _timeService = timeService;
         }
 
@@ -24,7 +21,7 @@ namespace GameLogic.Enemies
         {
             var enemy = _factory.SpawnEnemy().GetComponent<Enemy>();
             enemy.transform.position = transform.position;
-            enemy.Construct(_timeService, _animationClips);
+            enemy.Construct(_timeService);
             return enemy;
         }
     }

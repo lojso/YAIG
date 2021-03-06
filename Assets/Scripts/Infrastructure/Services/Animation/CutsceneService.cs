@@ -2,7 +2,7 @@
 using Infrastructure.Services.Abstract.Factories;
 using UnityEngine;
 
-namespace Infrastructure.Services
+namespace Infrastructure.Services.Animation
 {
     public class CutsceneService : ICutsceneService
     {

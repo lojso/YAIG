@@ -1,6 +1,7 @@
 ﻿using Infrastructure.Services;
 using Infrastructure.Services.Abstract;
 using Infrastructure.Services.Abstract.Factories;
+using Infrastructure.Services.Animation;
 using Infrastructure.Services.Factories;
 using UnityEngine;
 
@@ -63,8 +64,11 @@ namespace Infrastructure.States
             _services.RegisterSingle<IAnimationFactory>(new AnimationFactory(_services.Single<IUiFactory>()));
 
             _services.RegisterSingle<ISceneLoader>(new SceneLoader(_services.Single<IRuntimeService>()));
-            
-            _services.RegisterSingle<IAnimationClipsService>(new AnimationClipService(_services.Single<IAnimationFactory>()));
+
+            _services.RegisterSingle<IAnimationPopupClipsService>(
+                new RoutineAnimationPopupService(
+                    _services.Single<IAnimationFactory>(),
+                    _services.Single<IRuntimeService>()));
             
             _services.RegisterSingle<ICutsceneService>(new CutsceneService(_services.Single<IUiFactory>()));
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using GameLogic.Enemies;
+using Infrastructure.Services;
 using Infrastructure.Services.Abstract;
 using UnityEngine;
 
@@ -34,8 +35,6 @@ namespace GameLogic.Player
 
         private void Awake()
         {
-
-            
             _animator = new PlayerAnimator(GetComponent<Animator>());
             _mover = new CreatureMover(GetComponent<Rigidbody2D>());
 
