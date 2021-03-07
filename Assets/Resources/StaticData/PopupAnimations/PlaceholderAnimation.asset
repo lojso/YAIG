@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75dc6c5f70824f348c2e2dc0b713bd53, type: 3}
+  m_Name: PlaceholderAnimation
+  m_EditorClassIdentifier: 
+  animationFrames:
+  - showDelaySec: 0
+    frameSprite: {fileID: 21300000, guid: 6f526318091df104b9e5ef70859f44ec, type: 3}
+    frameLengthSec: 3
+    fadeOutTimeSec: 1
+  - showDelaySec: 0.8
+    frameSprite: {fileID: 21300000, guid: c1a486e5990113d4fbe994a34cc03964, type: 3}
+    frameLengthSec: 3
+    fadeOutTimeSec: 1
+  - showDelaySec: 0.8
+    frameSprite: {fileID: 21300000, guid: 770a936be3d544e4193b47011b45c591, type: 3}
+    frameLengthSec: 3
+    fadeOutTimeSec: 1
+  - showDelaySec: 0.8
+    frameSprite: {fileID: 21300000, guid: 25db1eb0f9eb30442a9c97ff123e8d3c, type: 3}
+    frameLengthSec: 3
+    fadeOutTimeSec: 1
+  - showDelaySec: 0.8
+    frameSprite: {fileID: 21300000, guid: b38f038aee722704f91b3e13b358615d, type: 3}
+    frameLengthSec: 3
+    fadeOutTimeSec: 1
+  - showDelaySec: 0.8
+    frameSprite: {fileID: 21300000, guid: d5cd17d76a347f8468f4c0944b619f99, type: 3}
+    frameLengthSec: 3
+    fadeOutTimeSec: 1

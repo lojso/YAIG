@@ -1,6 +1,6 @@
-﻿using Infrastructure.Services;
+﻿using System;
+using Infrastructure.Services;
 using Infrastructure.Services.Abstract;
-using UnityEditorInternal;
 using UnityEngine;
 
 namespace GameLogic.Enemies
@@ -10,10 +10,12 @@ namespace GameLogic.Enemies
     public class Enemy : MonoBehaviour, IDamageable
     {
         [SerializeField] private float _detectionRange = 2f;
-        [SerializeField] private float _attackDistance = 0.1f;
+        [SerializeField] private float _attackDistance = 0.2f;
         [SerializeField] private float _attackCooldownSec = 1.3f;
         [SerializeField] private float _speed = 50f;
         [SerializeField] private int _hp = 3;
+
+        public event Action<Enemy> OnDeath;
         
         private const int PLAYER_LAYER_MASK = 1 << 8;
 
@@ -23,18 +25,28 @@ namespace GameLogic.Enemies
         private bool _attackCooldownFinished;
         private RaycastHit2D _playerRaycastHit;
         private ITimeService _timeService;
+        private Rigidbody2D _rigidBody;
+        private bool _isDead;
+
+        public void Construct(ITimeService timeService)
+        {
+            _timeService = timeService;
+        }
 
         private void Awake()
         {
-            _timeService = ServicesContainer.Instance.Single<ITimeService>();
-            
-            _mover = new CreatureMover(GetComponent<Rigidbody2D>());
+            _rigidBody = GetComponent<Rigidbody2D>();
+            _mover = new CreatureMover(_rigidBody);
             _animator = new EnemyAnimator(GetComponent<Animator>());
             _attackCooldownFinished = true;
+            _isDead = false;
         }
 
         private void Update()
         {
+            if(_isDead)
+                return;
+            
             SearchPlayer();
             ProcessAttack();
             ProcessMovingToPlayer();
@@ -44,8 +56,14 @@ namespace GameLogic.Enemies
         {
             _hp -= amount;
             Debug.Log($"Damage {gameObject.name} for {amount} hp");
-            if (_hp <= 0)
+            if (_hp > 0)
+            {
+                _animator.GetHit();
+            }
+            else
+            {
                 Death();
+            }
         }
 
         private void SearchPlayer()
@@ -92,16 +110,20 @@ namespace GameLogic.Enemies
 
         private void ProcessMovingToPlayer()
         {
+            _animator.SetMovementVector(_rigidBody.velocity);
             if (!IsPlayerFound())
                 return;
 
-            _mover.RotateDirection(_playerRaycastHit.transform.position - transform.position);
-            _mover.Move(LocalForward, _speed * Time.deltaTime);
+            _mover.Move(_playerRaycastHit.transform.position - transform.position, _speed * Time.deltaTime);
         }
 
         private void Death()
         {
-            Destroy(gameObject);
+            _isDead = true;
+            _animator.PlayDeathAnimation();
+            gameObject.layer = Layers.DeadEnemy;
+            OnDeath?.Invoke(this);
+            Destroy(gameObject, 5f);
         }
 
         private void OnDrawGizmos()

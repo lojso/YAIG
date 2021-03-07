@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using GameLogic.Animation;
+using UnityEngine;
 
 namespace Infrastructure.Services.Abstract.Factories
 {
@@ -6,5 +7,6 @@ namespace Infrastructure.Services.Abstract.Factories
     {
         Animator CreateAnimationClipPrefab();
         Animator CreateCutscenePrefab();
+        PopupFrame CreatePopupFrame();
     }
 }

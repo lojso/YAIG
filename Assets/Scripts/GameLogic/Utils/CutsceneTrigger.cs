@@ -1,5 +1,4 @@
-﻿using System;
-using GameLogic.Helpers;
+﻿using GameLogic.Helpers;
 using Infrastructure.Services;
 using Infrastructure.Services.Abstract;
 using UnityEngine;
@@ -21,7 +20,7 @@ namespace GameLogic
         private void TriggerEnterHandler(GameObject obj)
         {
             if(obj.GetComponent<Player.Player>())
-                _cutscenePlayer.PlayDickButt();
+                _cutscenePlayer.PlayPlayRacoon();
         }
     }
 }

@@ -11,8 +11,26 @@ namespace GameLogic.Enemies
         {
             if (other.TryGetComponent<Player.Player>(out var player))
             {
-                player.Damage(_damage);
+                player.Damage(new PlayerDamageInfo()
+                {
+                    Damage = _damage,
+                    ShakeType = ShakeType.Random,
+                });
             }
         }
+    }
+
+    public class PlayerDamageInfo
+    {
+        public int Damage;
+        public ShakeType ShakeType;
+    }
+
+    public enum ShakeType
+    {
+        Unknown,
+        Camera,
+        Frame,
+        Random
     }
 }

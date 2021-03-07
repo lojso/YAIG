@@ -3,5 +3,6 @@
     public interface ICutsceneService : IService
     {
         void PlayDickButt();
+        void PlayPlayRacoon();
     }
 }

@@ -1,4 +1,5 @@
-﻿using Infrastructure.Services.Abstract.Factories;
+﻿using GameLogic.Animation;
+using Infrastructure.Services.Abstract.Factories;
 using UnityEngine;
 
 namespace Infrastructure.Services.Factories
@@ -16,25 +17,21 @@ namespace Infrastructure.Services.Factories
         public Animator CreateAnimationClipPrefab()
         {
             var animationClip = Resources.Load<Animator>(AssetsPath.AnimationClip);
-            
-            if (_uiFactory.Ui == null)
-            {
-                _uiFactory.CreateUi();
-            }
-            
+
             return Object.Instantiate(animationClip, _uiFactory.Ui.Canvas.transform);
         }
 
         public Animator CreateCutscenePrefab()
         {
             var animationClip = Resources.Load<Animator>(AssetsPath.AnimationClip);
-            
-            if (_uiFactory.Ui == null)
-            {
-                _uiFactory.CreateUi();
-            }
-            
+
             return Object.Instantiate(animationClip, _uiFactory.Ui.Canvas.transform);
+        }
+
+        public PopupFrame CreatePopupFrame()
+        {
+            var popupFrame = Resources.Load<PopupFrame>(AssetsPath.PopupFrame);
+            return Object.Instantiate(popupFrame, _uiFactory.Ui.Canvas.transform);
         }
     }
 }

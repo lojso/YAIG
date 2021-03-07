@@ -1,4 +1,5 @@
 ﻿using System;
+using GameLogic.Enemies;
 using Infrastructure.Services;
 using Infrastructure.Services.Abstract;
 using UnityEngine;
@@ -21,22 +22,39 @@ namespace GameLogic.Player
         private PlayerAnimator _animator;
         private CreatureMover _mover;
         private bool _canAttack;
+        private bool _canBlock;
+        private ScreenShaker _shaker;
+
+        public void Construct(IInputService inputService, ITimeService timeService, IFrameShakeService frameShake,
+            ICameraShakeService cameraShakeService)
+        {
+            _inputService = inputService;
+            _timeService = timeService;
+            _shaker = new ScreenShaker(frameShake, cameraShakeService);
+        }
 
         private void Awake()
         {
-            _inputService = ServicesContainer.Instance.Single<IInputService>();
-            _timeService = ServicesContainer.Instance.Single<ITimeService>();
             _animator = new PlayerAnimator(GetComponent<Animator>());
-
             _mover = new CreatureMover(GetComponent<Rigidbody2D>());
 
             _canAttack = true;
+            _canBlock = true;
         }
 
         private void Update()
         {
             ProcessMovementInput();
+            ProcessBlock();
             ProcessAttack();
+        }
+
+        private void ProcessBlock()
+        {
+            if (!_inputService.IsBlockPressed() || !_canBlock)
+                return;
+                
+            _animator.Block();
         }
 
         private void ProcessAttack()
@@ -53,7 +71,11 @@ namespace GameLogic.Player
         private void ProcessMovementInput()
         {
             _velocity = Vector2.zero;
-            _velocity.x = _inputService.GetHorizontalInput();
+            if (_animator.IsIdle() || _animator.IsWalking())
+            {
+                _velocity.x = _inputService.GetHorizontalInput();
+                _animator.SetMovementVector(_velocity);
+            }
         }
 
         private void FixedUpdate()
@@ -65,13 +87,15 @@ namespace GameLogic.Player
             _mover.Move(_velocity.normalized, _playerSpeed * Time.fixedDeltaTime);
         }
 
-        public void Damage(int damage)
+        public void Damage(PlayerDamageInfo damageInfo)
         {
             if(_health <= 0)
                 return;
             
-            _health -= damage;
-            Debug.Log($"Player damaged by {damage}. Current health: {_health}");
+            _health -= damageInfo.Damage;
+            _shaker.Shake(damageInfo.ShakeType);
+            _animator.GetHit();
+            Debug.Log($"Player damaged by {damageInfo}. Current health: {_health}");
             if(_health <= 0)
             {
                 OnDeath?.Invoke(this);
