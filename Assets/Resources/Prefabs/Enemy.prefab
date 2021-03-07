@@ -197,7 +197,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _detectionRange: 2
-  _attackDistance: 0.1
+  _attackDistance: 0.15
   _attackCooldownSec: 1.3
   _speed: 200
   _hp: 3
