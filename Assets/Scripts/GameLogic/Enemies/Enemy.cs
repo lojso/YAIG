@@ -14,7 +14,7 @@ namespace GameLogic.Enemies
         [SerializeField] private float _attackCooldownSec = 1.3f;
         [SerializeField] private float _speed = 50f;
         [SerializeField] private int _hp = 3;
-        
+
         public event Action<Enemy> OnDeath;
         
         private const int PLAYER_LAYER_MASK = 1 << 8;
@@ -121,6 +121,7 @@ namespace GameLogic.Enemies
         {
             _isDead = true;
             _animator.PlayDeathAnimation();
+            gameObject.layer = Layers.DeadEnemy;
             OnDeath?.Invoke(this);
             Destroy(gameObject, 5f);
         }

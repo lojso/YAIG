@@ -201,6 +201,7 @@ MonoBehaviour:
   _attackCooldownSec: 1.3
   _speed: 200
   _hp: 3
+  _collider: {fileID: 4584512127213626436}
 --- !u!1 &6081313161985207854
 GameObject:
   m_ObjectHideFlags: 0
