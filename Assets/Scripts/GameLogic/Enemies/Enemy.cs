@@ -123,7 +123,6 @@ namespace GameLogic.Enemies
             _animator.PlayDeathAnimation();
             gameObject.layer = Layers.DeadEnemy;
             OnDeath?.Invoke(this);
-            Destroy(gameObject, 5f);
         }
 
         private void OnDrawGizmos()

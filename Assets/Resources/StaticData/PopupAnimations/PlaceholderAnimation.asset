@@ -25,15 +25,3 @@ MonoBehaviour:
     frameSprite: {fileID: 21300000, guid: 770a936be3d544e4193b47011b45c591, type: 3}
     frameLengthSec: 3
     fadeOutTimeSec: 1
-  - showDelaySec: 0.8
-    frameSprite: {fileID: 21300000, guid: 25db1eb0f9eb30442a9c97ff123e8d3c, type: 3}
-    frameLengthSec: 3
-    fadeOutTimeSec: 1
-  - showDelaySec: 0.8
-    frameSprite: {fileID: 21300000, guid: b38f038aee722704f91b3e13b358615d, type: 3}
-    frameLengthSec: 3
-    fadeOutTimeSec: 1
-  - showDelaySec: 0.8
-    frameSprite: {fileID: 21300000, guid: d5cd17d76a347f8468f4c0944b619f99, type: 3}
-    frameLengthSec: 3
-    fadeOutTimeSec: 1
